@@ -1,14 +1,28 @@
 <?php
 
-#[Attribute]
+#[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_PARAMETER)]
 class NotBlank{
 
 }
 
+#[Attribute(Attribute::TARGET_PROPERTY)]
+class Length{
+    public int $min;
+    public int $max;
+
+    public function __construct(int $min, int $max){
+        $this->min = $min;
+        $this->max = $max;
+    }
+}
+
 class LoginRequest{
+    #[Length(min: 4, max:10)]
     #[Notblank]
     public string $username;
 
+
+    #[Length(min: 8, max:10)]
     #[NotBlank]
     public string $password;
 }
